@@ -1,0 +1,75 @@
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Search</title>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>                        
+     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <style>
+
+        ::-webkit-input-placeholder {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center
+        }
+    </style>
+    <script>// ajax: for name verification first
+function check_and_submit(){
+    student_name = $("#sn").val();
+    if(student_name=="" || student_name == undefined){ // use bootstrap alert
+        $('#alert-text').html('没有指定查询的<strong>学生姓名</strong>。')
+        $('.alert').show();
+        return;
+    }
+    window.location.href="./?sn=" + student_name;
+}
+    </script>
+</head>
+<body>
+                          
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td colspan="5">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+                                    <div id="alert-text"><strong>Volunteer name</strong> is required.</div>
+                                    <button type="button" class="close" onclick="$('.alert').hide();" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                            </div>
+                    </td>
+                </tr>
+                <tr><td colspan="5">
+                        <input type="text" class="form-control" placeholder="学生姓名，查询多人逗号分隔" id="sn" aria-describedby="volunteer name">
+                </tr></td>
+
+            {% if students %}                
+                <tr>
+                    <th>序号</th> <th> 姓名</th> <th> 性别</th> <th> 学号</th> <th>宿舍</th>
+                </tr>
+            {% endif %}            
+         </thead>
+         <tfoot>
+            <tr>
+                <td colspan="5"><button class="btn btn-outline-secondary" type="button" onclick="check_and_submit()">Submit</button></td>
+            </tr>
+        </tfoot>         
+         <tbody>
+            {% for item in students %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.gender}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.dormitory}}</td>              
+            </tr>
+            {% endfor %}         
+    </tbody>
+        </table>    
+</body>
+</html>
