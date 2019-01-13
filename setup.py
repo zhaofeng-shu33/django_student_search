@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name="django-student-search",
+    name="django_student_search",
     version="0.1",
     author="zhaofeng-shu33",
     description="search student information",
